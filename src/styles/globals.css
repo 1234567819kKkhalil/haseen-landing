@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Haseen design tokens — taken ONLY from the brand guide
+   (دليل الهوية البصرية · ٠٦ الألوان).
+   `--color-*: initial` removes Tailwind's default palette, so a
+   colour outside the identity fails at build time.
+   Tints: use opacity modifiers — bg-white/5, text-mist/70 …
+
+   Direction: Gulf luxury at night — a deep royal-purple canvas,
+   gold used like jewellery (sparingly), hairline borders and a
+   faint pattern of child-safety icons.
+   ============================================================ */
+@theme {
+  --color-*: initial;
+
+  --color-purple: #4f008c; /* Haseen Purple — primary */
+  --color-orchid: #6a12b0; /* top of the shield gradient */
+  --color-fortress: #2e0052; /* Fortress Night */
+  --color-amber: #fca503; /* Light Amber — the golden child */
+  --color-mist: #f3ecf9; /* Lavender Mist */
+  --color-ink: #1c1426; /* Ink */
+  --color-night: #12001f; /* page canvas — Fortress Night, deepened */
+  --color-white: #ffffff;
+
+  --font-sans: var(--font-plex), system-ui, sans-serif;
+  --font-display: var(--font-messiri), var(--font-plex), serif;
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-shimmer: shimmer 6s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  --animate-sweep-ltr: sweep-ltr 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  --animate-sweep-rtl: sweep-rtl 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  --animate-spin-slow: spin 6s linear infinite;
+  --animate-glow: glow 3.2s ease-in-out infinite;
+
+  @keyframes sweep-ltr {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
+    }
+  }
+
+  @keyframes sweep-rtl {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-300%);
+    }
+  }
+
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position: -200% center;
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-night font-sans text-white antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+
+  ::selection {
+    @apply bg-amber text-fortress;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-amber;
+  }
+}
+
+/* ---------- Surfaces ---------- */
+
+/* Glass card with a hairline border — the base of every card. */
+@utility surface {
+  border-radius: 1.75rem;
+  border: 1px solid rgb(243 236 249 / 0.09);
+  background-image: linear-gradient(160deg, rgb(243 236 249 / 0.07), rgb(243 236 249 / 0.02));
+}
+
+/* Gold hairline that appears on hover + lift + warm glow. */
+@utility card-hover {
+  transition:
+    translate 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+
+  &:hover {
+    translate: 0 -6px;
+    border-color: rgb(252 165 3 / 0.4);
+    box-shadow: 0 30px 60px -30px rgb(252 165 3 / 0.35);
+  }
+}
+
+/* Icon tile that fills with gold when its card is hovered. */
+@utility icon-pop {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    scale 0.35s ease;
+
+  :where(.group):hover & {
+    background-color: var(--color-amber);
+    color: var(--color-fortress);
+    scale: 1.08;
+  }
+}
+
+/* ---------- Gulf ornaments ---------- */
+
+/* Faint pattern of child-safety icons (shield, lock, heart, child, bell, eye, phone). */
+@utility bg-safety {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22224%22 height=%22224%22 viewBox=%220 0 224 224%22%3E%3Cg fill=%22none%22 stroke-width=%221.5%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cg transform=%22translate(14 14) rotate(-8 12 12)%22 stroke=%22%23FCA503%22 stroke-opacity=%22.10%22%3E%3Cpath d=%22M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z%22/%3E%3Cpath d=%22m9 12 2 2 4-4%22/%3E%3C/g%3E%3Cg transform=%22translate(118 22) rotate(10 12 12)%22 stroke=%22%23F3ECF9%22 stroke-opacity=%22.06%22%3E%3Crect x=%223%22 y=%2211%22 width=%2218%22 height=%2211%22 rx=%222%22/%3E%3Cpath d=%22M7 11V7a5 5 0 0 1 10 0v4%22/%3E%3C/g%3E%3Cg transform=%22translate(66 78) rotate(-6 12 12)%22 stroke=%22%23FCA503%22 stroke-opacity=%22.10%22%3E%3Cpath d=%22M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z%22/%3E%3C/g%3E%3Cg transform=%22translate(160 92) rotate(8 12 12)%22 stroke=%22%23F3ECF9%22 stroke-opacity=%22.06%22%3E%3Cpath d=%22M9 12h.01M15 12h.01M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5%22/%3E%3Cpath d=%22M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1%22/%3E%3C/g%3E%3Cg transform=%22translate(18 146) rotate(12 12 12)%22 stroke=%22%23F3ECF9%22 stroke-opacity=%22.06%22%3E%3Cpath d=%22M10.268 21a2 2 0 0 0 3.464 0%22/%3E%3Cpath d=%22M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326%22/%3E%3C/g%3E%3Cg transform=%22translate(108 152) rotate(-4 12 12)%22 stroke=%22%23FCA503%22 stroke-opacity=%22.10%22%3E%3Cpath d=%22M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0%22/%3E%3Ccircle cx=%2212%22 cy=%2212%22 r=%223%22/%3E%3C/g%3E%3Cg transform=%22translate(176 176) rotate(-10 12 12)%22 stroke=%22%23FCA503%22 stroke-opacity=%22.10%22%3E%3Crect x=%225%22 y=%222%22 width=%2214%22 height=%2220%22 rx=%222%22/%3E%3Cpath d=%22M12 18h.01%22/%3E%3C/g%3E%3Cg transform=%22translate(64 190) rotate(6 12 12)%22 stroke=%22%23F3ECF9%22 stroke-opacity=%22.06%22%3E%3Cpath d=%22M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-size: 224px 224px;
+}
+
+/* Gold shimmer text for highlighted words. */
+@utility text-gold {
+  background-image: linear-gradient(
+    100deg,
+    #fca503 0%,
+    #ffd77a 22%,
+    #fca503 42%,
+    #fca503 58%,
+    #ffd77a 78%,
+    #fca503 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Soft royal glow behind a section. */
+@utility glow-royal {
+  background-image:
+    radial-gradient(60% 50% at 50% 0%, rgb(106 18 176 / 0.35), transparent 70%),
+    radial-gradient(40% 40% at 85% 20%, rgb(252 165 3 / 0.08), transparent 70%);
+}
+
+/* Thin gold rule that fades out at both ends. */
+@utility rule-gold {
+  height: 1px;
+  background-image: linear-gradient(90deg, transparent, rgb(252 165 3 / 0.55), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,9 @@
+export { Faq } from "./Faq";
+export { Family } from "./Family";
+export { FinalCta } from "./FinalCta";
+export { Hero } from "./Hero";
+export { HowItWorks } from "./HowItWorks";
+export { MadeForSaudi } from "./MadeForSaudi";
+export { Privacy } from "./Privacy";
+export { Story } from "./Story";
+export { Threats } from "./Threats";
