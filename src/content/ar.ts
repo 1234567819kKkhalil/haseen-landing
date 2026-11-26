@@ -234,7 +234,7 @@ export const content = {
     highlight: "في دقايق",
     steps: [
       {
-        title: "سجّل كولي أمر",
+        title: "إنشاء حسابك ولي أمر",
         text: "حمّل حصين وسوّ حسابك برقم جوالك.",
         image: "/how/step-1.png",
         alt: "شاشة إنشاء حساب ولي الأمر في تطبيق حصين",
